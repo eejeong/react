@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <p>소문자를 입력하면 대문자로 바꿔준다</p>
+  Enter your name : <input type="text" id="fname" onkeydown="goKeyDown()" onkeypress="goKeyPress()" onkeyup="goKeyUp()">
+</body>
+</html>
+<script>
+  function goKeyDown() { //모든 키 인식
+    console.log(event.key); //우리가 누른 키에 대한 정보가 있다
+    console.log(event.keyCode); //코드값 enter=13 
+    console.log("keydown");
+  }
+  function goKeyPress() { //문자키만 인식
+    console.log("keypress");
+  }
+  function goKeyUp() {
+    console.log("keyup");
+    x = document.getElementById("fname"); //객체 가져오기
+    x.value = x.value.toUpperCase();
+  }
+</script>
