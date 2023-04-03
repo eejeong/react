@@ -41,9 +41,6 @@ let server = http.createServer((request, response)=> {
         response.end("<h1>존재하지 않는 url 입니다</h1>");
     }
     }) 
-
-    
-
     server.listen(4000, ()=>{
         console.log("server start http://127.0.0.1:4000");
 });
