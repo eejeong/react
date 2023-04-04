@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+</head>
+</head>
+
+<body>
+  이름 : <input type="text" id="name"><br />
+  국어 : <input type="text" id="kor" /><br />
+  영어 : <input type="text" id="eng" /><br />
+  수학 : <input type="text" id="mat" /><br /><br />
+
+  <button type="button" id="btnConfirm">결과 확인</button><br /><br />
+</body>
+
+</html>
+<script>
+  window.onload = () => {
+    let btnConfirm = document.getElementById("btnConfirm");
+
+    btnConfirm.addEventListener("click", () => {
+      document.forms[0].submit();
+    });
+  };
+</script>
