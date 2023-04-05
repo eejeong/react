@@ -14,16 +14,15 @@ app.get("/input", (request, response) => {
 });
 
 app.get("/confirm", (request, response) => {
-  let name = request.query.username;
+  let name = request.query.name;
   let kor = parseInt(request.query.kor);
   let eng = parseInt(request.query.eng);
   let mat = parseInt(request.query.mat);
 
-  let sum = (kor + eng + mat).toString();
-  let avg = (kor + eng + mat) / 3 + "";
+  result = `${name}의 총점은 ${kor+eng+mat} 점이고 평균은 ${((kor+eng+mat)/3).toFixed(2)}점입니다.`;
+  response.writeHead(200, { "Content-type": "text/html;charset=utf-8" });
+  response.end(result);
 
-  //let avg = (Kor + eng + mat) / (3).toString();
-  response.send(`${name}의 총점은 ${sum} 점이고 평균은 ${avg}점입니다.`);
 });
 
 app.use((request, response) => {

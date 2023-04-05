@@ -32,7 +32,7 @@ app.get("/view/:id", function (request, response){
 });
 
 app.get("/write", (req, res)=>{
-    res.render('/guestbook/write');
+    res.render('guestbook/write');
 });
 
 app.post("/write", (req, res)=>{
