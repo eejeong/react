@@ -50,23 +50,55 @@ router.get('/login', async function(req, res, next){
   res.render("member/member_login");
 });
 
+router.post('/login', async function(req, res, next){
+  let userid = req.body.userid; 
+  let password = req.body.password;
+  let sql = `select * from tb_member where userid='${userid}'`;
+  let results = await commonDB.mysqlRead(sql);
+  if(results.length==0){
+    res.json({"result":"fail", msg:"아이디가 없습니다."});
+    return;
+  }
+  if(results[0]["password"] != password){
+    res.json({"result":"fail", msg:"패스워드가 정확하지 않습니다."});
+    return;
+  }
+  req.session["username"] = results[0]["username"];
+  req.session["userid"] = results[0]["userid"];
+  req.session["email"] = results[0]["email"];
+
+  console.log(results[0]["username"]);
+  console.log(results[0]["userid"]);
+  console.log(results[0]["email"]);
+
+  res.json({"result":"success", msg:"로그온 성공"});
+})
+
+// router.use('/member_login', async function(req, res, next){
+//   let userid = req.body.userid; 
+//   let password = req.body.password;
+//   let sql = `select count(*) cnt from tb_member where userid='${userid}' and password='${password}'`;
+//   let rows = await commonDB.mysqlRead(sql, [userid, password]);
+//   let cnt = rows[0]["cnt"];
+//   if(cnt == 1)
+//     res.json({"result":"success"});
+//   else
+//     res.json({"result":"fail"});
+// });
+
 router.get('/put', async function(req, res, next){
   let userid = req.query.userid; 
   req.session["userid"] = userid;
   console.log(req.session["userid"]);
 });
 
-router.use('/member_login', async function(req, res, next){
-  let userid = req.body.userid; 
-  let password = req.body.password;
-  let sql = `select count(*) cnt from tb_member where userid='${userid}' and password='${password}'`;
-  let rows = await commonDB.mysqlRead(sql, [userid, password]);
-  let cnt = rows[0]["cnt"];
-  if(cnt == 1)
-    res.json({"result":"success"});
-  else
-    res.json({"result":"fail"});
-});
+router.use('/logout', async function(req, res, next) {
+  req.session["userid"]="";
+  req.session["usename"]="";
+  req.session["email"]="";
+  res.redirect("/"); //로그아웃하고 나면 index로 이동하기
+  //req.session.destroy();
+})
 
 
 module.exports = router;
