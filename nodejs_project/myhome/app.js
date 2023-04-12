@@ -6,12 +6,14 @@ let logger = require('morgan');
 const session = require("express-session");
 const MYSQLSTORE = require("express-mysql-session")(session);
 const DBInfo = require("./routes/commonDB"); //세션이 저장될 디비 정보
+const cors = require('cors');
 
 let indexRouter = require('./routes/index');
 let usersRouter = require('./routes/users');
 let boardRouter = require('./routes/board');
 let memberRouter = require('./routes/member');
 const MySQLStore = require('express-mysql-session');
+let heroRouter = require('./routes/hero');
 
 let app = express();
 
@@ -34,10 +36,16 @@ app.use(session({
   resave:false,
   saveUninitialized:false
 }));
+
+app.use(cors()); //원래는 보다 정밀하게 받는 방법 찾아서 작성해야함
+// 현재는 아무데서나 요청오면 다 받음
+
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/board', boardRouter);
-app.use('/member', memberRouter)
+app.use('/member', memberRouter);
+app.use('/hero', heroRouter);
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
