@@ -14,6 +14,7 @@ let boardRouter = require('./routes/board');
 let memberRouter = require('./routes/member');
 const MySQLStore = require('express-mysql-session');
 let heroRouter = require('./routes/hero');
+let scoreRouter = require('./routes/ScoreListBack');
 
 let app = express();
 
@@ -45,6 +46,7 @@ app.use('/users', usersRouter);
 app.use('/board', boardRouter);
 app.use('/member', memberRouter);
 app.use('/hero', heroRouter);
+app.use('/score', scoreRouter);
 
 
 // catch 404 and forward to error handler
