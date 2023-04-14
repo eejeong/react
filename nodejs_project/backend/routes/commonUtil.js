@@ -31,4 +31,29 @@ function getPaging(pg, totalCnt, pageGroupSize=10){
 // for(i=1; i<=32; i++)
 //     getPaging(i,320);
 
+function checkInfo(req, checkInfos){
+    msg="";
+    result=0;
+    resultInfo={};
+
+    for(info of checkInfos) {
+        //undefined : 상대방이 이 키값을 보내지 않은 상태
+        if(req.body[info.key]==undefined) {
+            msg = info.key + " is empty\n";
+            result=1;
+            req.body[info.key]=""; //초기화. 다음 처리를 위해서 가급적 else를 사용하지 않음
+        }
+        //타입체크나 범위 체크 
+        if(info.type=="str" && info.range!=-1 && req.body[info.key].length>info.range) {
+            msg = msg += info.key + " range error\n";
+        }
+        resultInfo[info.key] = req.body[info.key];
+        resultInfo["result"] = result;
+        resultInfo["msg"] = msg;
+
+        return resultInfo;
+    }
+}
+
+exports.checkInfo = checkInfo;
 exports.getPaging = getPaging;

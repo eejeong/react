@@ -8,6 +8,8 @@ import BoardList from './component/board/BoardList.js';
 import BoardWrite from './component/board/BoardWrite.js';
 import ScoreList from './component/board/ScoreListFront.js';
 import ScoreWrite from './component/board/ScoreWrite.js'; 
+import HeroList from './component/hero/HeroList.js';
+import HeroWrite from './component/hero/HeroWrite.js';
 
 function App() {
   return (
@@ -21,6 +23,9 @@ function App() {
           <Route path="/score/list" element={<ScoreList/>} />
           <Route path="/score/write" element={<ScoreWrite/>} />
           <Route path="/score/view/:id" element={<ScoreWrite/>} />
+          <Route path="/hero/list" element={<HeroList/>} />
+          <Route path="/hero/write" element={<HeroWrite/>} />
+          <Route path="/hero/view/:id" element={<HeroWrite/>} />
         </Route>
       </Routes>
     </div>

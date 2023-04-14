@@ -4,24 +4,22 @@ import axios from 'axios';
 import { SERVERIP } from '../../CommonUtil';
 import { Link, useNavigate, useParams } from "react-router-dom";
 
-function BoardWrite(props){
+function HeroWrite(props){
     let {id} = useParams(); //보내는 쪽에서 json 객체로 보냄
     let history = useNavigate();
 
-    const [title, setTitle]=useState("");
-    const [writer, setWriter]=useState("");
-    const [contents, setContents]=useState("");
+    const [heroName, setHeroName]=useState("");
+    const [heroDesc, setHeroDesc]=useState("");
 
     useEffect(()=>{
+        console.log("id", id);
         async function loadData(){
-            let results = await axios.get(SERVERIP+"/board/view/"+id);
-            console.log(results.data.board.title);
-            console.log(results.data.board.writer);
-            console.log(results.data.board.contents);
+            let results = await axios.get(SERVERIP+"/hero/view/"+id);
+            console.log(results.data.hero.hero_name);
+            console.log(results.data.hero.hero_desc);
 
-            setTitle(results.data.board.title);
-            setWriter(results.data.board.writer);
-            setContents(results.data.board.contents);
+            setHeroName(results.data.hero.hero_name);
+            setHeroDesc(results.data.hero.hero_desc);
         }
         if( id!=undefined) //write가 아니고 view로 호출할 때
             loadData();
@@ -30,24 +28,21 @@ function BoardWrite(props){
         // /board/view/1일 때는 id에는 파라미터 값이 저장 (id:1)
     },[]);
 
-    const titleChange=(e)=>{
-        setTitle(e.target.value);
-    }
     const nameChange=(e)=>{
-        setWriter(e.target.value);
+        setHeroName(e.target.value);
     }
-    const contentsChange=(e)=>{
-        setContents(e.target.value);
+    const descChange=(e)=>{
+        setHeroDesc(e.target.value);
     }
 
     //서버로 전송하기
     const postData=()=>{
         //데이터를 json으로 묶어서 보내야 한다.
-        let data = {"title":title, "writer":writer, "contents":contents};
-        axios.post(SERVERIP+"/rest_board/write", data)
+        let data = {"hero_name":heroName, "hero_desc":heroDesc};
+        axios.post(SERVERIP+"/hero/write", data)
         .then((res)=>{
             console.log(res.data);
-            history("/board/list"); //redirect에 대응
+            history("/hero/list"); //redirect에 대응
         })
         .catch((error)=>{
             console.log(error);
@@ -64,32 +59,22 @@ function BoardWrite(props){
             
                 <tbody>
                 <tr>
-                    <td>제목</td>
+                    <td>이름</td>
                     <td>
                         <div className="mb-3" style={{marginTop: "13px"}}>
                             <input type="text" className="form-control" 
-                            value={title}
-                            placeholder="제목을 입력하세요" onChange={titleChange}/> 
+                            value={heroName}
+                            placeholder="이름을 입력하세요" onChange={nameChange}/> 
                         </div>
                     </td>
                 </tr>       
                 <tr>
-                    <td>작성자</td>
+                    <td>업적</td>
                     <td>
                         <div className="mb-3" style={{marginTop: "13px"}}>
                             <input type="text" className="form-control"  
-                            value={writer}
-                            placeholder="이름을 입력하세요" onChange={nameChange}/>
-                        </div>
-                    </td>
-                </tr>   
-                <tr>
-                    <td>내용</td>
-                    <td>
-                        <div className="mb-3" style={{marginTop: "13px"}}>
-                            <input type="text" className="form-control"  
-                            value={contents}
-                            placeholder="내용을 입력하세요" onChange={contentsChange}/>
+                            value={heroDesc}
+                            placeholder="업적을 입력하세요" onChange={descChange}/>
                         </div>
                     </td>
                 </tr>               
@@ -104,4 +89,4 @@ function BoardWrite(props){
     );
 }
 
-export default BoardWrite;
+export default HeroWrite;

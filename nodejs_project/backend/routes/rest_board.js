@@ -118,17 +118,3 @@ router.post("/save", async function(req, res, next) {
 
 module.exports = router;
 
-
-// sql =`SELECT A.id, A.title, A.writer, A.num, A.username
-//   , date_format(A.wdate, ‘%Y-%m-%d’) wdate
-// FROM
-// (
-//   SELECT A.id, A.title, A.writer, A.wdate, c.username
-//   ,@rownum :=@rownum+1 num
-//   FROM tb_board A
-//   LEFT OUTER JOIN tb_member c ON a.writer=c.userid
-//   CROSS JOIN (SELECT @rownum:=0) B on 1=1
-//   ORDER BY id DESC
-// )A
-// ORDER BY id ASC
-//   LIMIT ${(pg-1)*10}, 10 `
