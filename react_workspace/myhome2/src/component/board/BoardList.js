@@ -86,6 +86,15 @@ function BoardList(props) {
                                         <td><Link to={"/board/view/"+item.id}>{item.title}</Link></td>
                                         <td>{item.username}</td>
                                         <td>{item.wdate}</td>
+                                        <td>
+                                            {
+                                                item.filelink!=null? 
+                                                <img src={`http://127.0.0.1:9090/${item.filelink}`} 
+                                                height="100px" crossOrigin='anonymous'></img>
+                                                :""
+                                            }
+                                        </td>
+                            
                                     </tr>
                                 )
                             })

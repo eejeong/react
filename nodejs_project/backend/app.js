@@ -42,6 +42,8 @@ app.use(session({
 app.use(cors()); //원래는 보다 정밀하게 받는 방법 찾아서 작성해야함
 // 현재는 아무데서나 요청오면 다 받음
 
+//http://127.0.0.1:9090/uploads/board/1681695582829.jpg
+app.use('/uploads', express.static('uploads'));
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/board', boardRouter);
@@ -49,6 +51,7 @@ app.use('/member', memberRouter);
 app.use('/hero', heroRouter);
 app.use('/score', scoreRouter);
 app.use('/rest_board', RestBoardRouter);
+
 
 
 // catch 404 and forward to error handler

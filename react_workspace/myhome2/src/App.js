@@ -11,6 +11,7 @@ import ScoreWrite from './component/board/ScoreWrite.js';
 import HeroList from './component/hero/HeroList.js';
 import HeroWrite from './component/hero/HeroWrite.js';
 
+
 function App() {
   return (
     <div className="App">
@@ -28,7 +29,7 @@ function App() {
           <Route path="/hero/view/:id" element={<HeroWrite/>} />
         </Route>
       </Routes>
-    </div>
+    </div>  
   );
 }
 
